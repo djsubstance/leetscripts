@@ -1,0 +1,341 @@
+
+
+
+
+
+       [+------------------------------------------------------------------------------------------------- +]
+                                  _             
+                 ___             | |      _        _    _ _                _                      _    
+                / _ \__  __    __| | __ _| |_ __ _| | _(_) |_     _ __   ___| |___      _____  _ __| | __
+               | (_) \ \/ /   / _` |/ _` | __/ _` | |/ / | __|   | '_ \ / _ \ __\ \ /\ / / _ \| '__| |/ /
+                \__, |>  <   | (_| | (_| | || (_| |   <| | |_    | | | |  __/ |_ \ V  V / (_) | |  |   < 
+                  / // /\ \   \__,_|\__,_|\__\__,_|_|\_\_|\__|   |_| |_|\___|\__| \_/\_/ \___/|_|  | |\ \
+                 /_// /  \_\                                                                       | | \_\
+                              9x Datakit Network               copywrite (c) 2021 all rights lost
+                           https://9x.network      [ #9x / EFNet ]           https://tranceattic.com
+       [+------------------------------------------------------------------------------------------------- +]
+
+
+
+
+
+
+       [+------------------------------------------------------------------------------------------------- +]
+       
+        ####  #####  ###### ###### ##### ###### 
+       #    # #    # #      #        #       #  
+       #      #    # #####  #####    #      #   
+       #  ### #####  #      #        #     #    
+       #    # #   #  #      #        #    #     
+        ####  #    # ###### ######   #   ######    _\|/_  9x SHOUT outz:
+       [+------------------------------------------------------------------------------------------------- +]
+           
+ [bX] @[ces]    ] [@kluge    ] [@shoelace_] [@LordLinus] [@Soze     ] [@xtc      ] [ myssy    ] [@anettu   ] 
+      [@m0nt3   ] [@ninex    ] [@MikeAce  ] [@cstone   ] [@moony    ] [+darkness ] [@delo     ] [@mptank   ]
+      [@mrn     ] [@elf      ] [@n00m     ] [@special-k] [@EMPixie  ] [@n0de     ] [@blakangel] [@fckd-    ]
+      [@presonic] [@tanami   ] [ d1g      ] [@tjr_     ] [ flyback  ] [ tminus-  ] [@redbull  ] [@teletitty]
+      [@remorse  ] [@vae     ] [ Jester|  ] [@vect0rx  ] [@history  ] [@saire    ] [@vixen    ] [@jalljo   ]
+      [@shoelace ] [@weev    ] [ lep_     ]    
+
+
+
+
+
+
+ --------------------------------------------------- T O C --------------------------------------------------
+ Repost of deprecated autovpn.go [with updates for stability]                                           [ 1 ]
+ Ultimate script for Linux to optimize TCP/IP Settings via sysctl                                       [ 2 ]
+
+
+
+
+ --------------------------------------------------- [ 1 ] --------------------------------------------------
+
+              _                                      
+             | |                                     
+   __ _ _   _| |_ _____   ___ __  _ __       __ _  ___  
+  / _` | | | | __/ _ \ \ / / '_ \| '_ \     / _` |/ _ \ 
+ | (_| | |_| | || (_) \ V /| |_) | | | |   | (_| | (_) |
+  \__,_|\__,_|\__\___/ \_/ | .__/|_| |_|(_) \__, |\___/ 
+                           | |               __/ |      
+                           |_|              |___/       
+
+Name: [repost  of deprecated git]  autovpn.git
+Desc: Connect to a random anonymous openvpn server (10x better then using TOR speedwise)... chain with proxychains
+Cmd : wget https://raw.githubusercontent.com/djsubstance/9x/master/autovpn-working?token=AEZA4WMYNE4NNIQ7UWGS6OLBIBDSA
+      mv autovpn-working\?token\=[tab][cmdcomplete] autovpn.go
+      go build ./autovpn.go
+      ./autovpn
+Notes: Do *not* run this remotely, it will drop your connection, it will overwrite your default route
+
+
+[ +--------------------------------------------------------+ ]
+  _                                       _       _       
+ | |             | |                     (_)     | |      
+ | |__   __ _ ___| |__      ___  ___ _ __ _ _ __ | |_ ___ 
+ | '_ \ / _` / __| '_ \    / __|/ __| '__| | '_ \| __/ __|
+ | |_) | (_| \__ \ | | |   \__ \ (__| |  | | |_) | |_\__ \
+ |_.__/ \__,_|___/_| |_|   |___/\___|_|  |_| .__/ \__|___/
+                                           | |            
+ [ Shell Cmds for scripts or standalone ]  |_|            
+
+ 
+[+------------------------------------------------------------------------------------------------------------+]
+
+
+
+ --------------------------------------------------- [ 2 ] --------------------------------------------------
+
+** The Ultimate script for Linux to optimize TCP/IP Settings via sysctl:  
+SCRIPT URL BELOW :
+https://9x.network/sysctl_tips.txt
+
+
+
+ --------------------------------------------------- [ 3 ] --------------------------------------------------
+Name   :  asn4.sh
+Desc:  :  Dumps all advertised prefixes of <asn#> to stdout [ipv4]
+Usage  :  asn4.sh <asn#>
+Script :  [bash] following
+
+cat badipsvarlog.sh
+#!/bin/bash
+echo "extracing IPs from /var/log/auth.log";echo
+         grep -oE '[[:alnum:]]+[.][[:alnum:]_.-]+' /var/log/auth.log | sed 's/www.//' | sort| uniq > badips.txt
+
+
+
+
+[+----------------------------------------------------[ propz to vae for this script ] ----------------------------------------------------------------------+]
+
+Name   :  asn4.sh
+Desc:  :  Dumps all advertised prefixes of <asn#> to stdout [ipv4]
+Usage  :  asn4.sh <asn#>
+Script :  [bash] following
+
+#!/bin/bash
+ if [ "$#" -eq  "0" ]
+   then
+     echo "No arguments supplied"
+     echo "Usage: ./asn_v4.sh <ASN> "
+     exit
+else
+curl --silent https://www.dan.me.uk/bgplookup?asn=$1 |grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\/[0-9]\{1,2\}' |sort |uniq
+fi
+
+
+[+----------------------------------------------------[ propz to vae for this script ] ----------------------------------------------------------------------+]
+
+Name   :  asn6.sh
+Desc:  :  Dumps all advertised prefixes of <asn#> to stdout [ipv6]
+Usage  :  asn6.sh <asn#>
+Script :  [bash] following
+
+#!/bin/bash
+echo "Checking BGP IP -> $1";echo
+curl --silent https://www.dan.me.uk/bgplookup?asn=$1 | grep -oE 's*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))'
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+Name   :  chkport.sh
+Desc:  :  Checks for one single open TCP port using nothing more then bash core commands
+Usage  :  timeout 3  ./chkport.sh <host> <tcpport>
+Note(s):  the timeout above is required, because the script will just hang on a closed port. this seems to do the job
+Script :  [bash] following
+
+#!/bin/bash
+echo "Checking Host $1 for port $2";
+echo;
+(echo > /dev/tcp/$1/$2) >/dev/null 2>&1 && echo "It's up" || echo "It's down"
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+Name   :  dnst.sh 
+Desc   :  front end wrapper for dnstracer *must clone repo below*
+Repo   :  git clone https://github.com/Orc/dnstracer  
+Notes  :  compile dnstracer - this can do a bunch of cool things, but this will track the DNS of your target and identify the authortative server(s)
+Usage  :  dnstracer -o -s g.gtld-servers.net  $1
+Output :  You should see something like this \
+
+./dnst.sh thepiratebay.com
+<snip>
+> 104.16.43.196
+ns31.constellix.com (2600:180c:3001:0000:0000:0000:0000:0001) thepiratebay.com -> 104.16.45.196
+ns31.constellix.com (43.247.170.1)      thepiratebay.com -> 104.16.44.196
+ns31.constellix.com (43.247.170.1)      thepiratebay.com -> 104.16.41.196
+ns31.constellix.com (43.247.170.1)      thepiratebay.com -> 104.16.43.196
+ns31.constellix.com (43.247.170.1)      thepiratebay.com -> 104.16.45.196
+ns31.constellix.com (43.247.170.1)      thepiratebay.com -> 104.16.42.196
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+Name  : wrt_blk.sh
+Desc  : Dump hostnames from the /22 range you specify
+Cmd   : lynx --dump "https://www.rtsak.com/cidr/$1.0-22"| grep dns| cut -d "/" -f 5
+Usage : ./wrt_blk <x.x.x>  (3 octets) it assumes /22
+Output:  below\
+
+./wrt_blk.sh 70.224.5
+
+scanning rtsak for the range 70.224.5.0/22
+
+adsl-70-224-5-2.dsl.sfldmi.ameritech.net
+adsl-70-224-5-129.dsl.sfldmi.ameritech.net
+ns1.ootbi.com
+70-224-7-195.vanburen-mi.org
+
+
+[+-------------------------------------------------  [ props to mrnobody ] ---------------------------------------------------------------------------+]
+Name   :  keywords.sh
+Desc   :  This believe it or not is excellent to run thru a job description if your looking for acryonums like BGP, EIGRP, SDWAN, etc.. many uses
+Cmd    :  cat cap |grep .['A'-'Z']['A'-'Z']['A'-'Z']['A'-'Z',' ']
+
+
+
+[+----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+
+
+
+
+
+
+
+Name: getdns.sh
+Desc: Get DNS Entrys (all) via CLI quickly from remote source:
+Cmd :  curl -sL "https://dnsrecords.io/<domain.com>" | html2text |awk '/./' | grep -v '\[comman\|type '
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name  : grabem.sh
+Desc  : Get all ipv4 ips out of file <file.txt>
+Script:  put the following into grabem.sh 
+Code  :  grep -E -o '((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' $1
+Usage :  cat /var/log/auth.log | grabem.sh
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name  : grabem6.sh
+Desc  : get all ipv6 ips out of file <file.txt>
+Script: put the following into   grabem6.sh
+Code  : grep -oE 's*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))'
+Usage : cat /var/log/auth.log | grabem6.sh
+Output:  cat iplogs.txt | grabem6.sh \
+          2605:fb80:f000:15e3:0:0:0:5
+          2604:6000:1111:c4d5:295f:3cb8:8c84:2069
+Note(s):  IPv6 IPs should show up in color .. this can be combined with the above cmd
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name   : dumpspeed.sh
+Desc   : Manipulate speedtest server to dump X bytes to stdiyt
+Script : Put the following into dumpspeed.sh
+Code   : curl  -s 'http://speed.colo.wideopenwest.com.prod.hosts.ooklaserver.net:8080/download?nocache=7c9940b3-c837-4261-a6fe-89b7df2cdb9e&size=2500000000000&guid=2e1977e0-fb18-11eb-915e-0b2b11c7cc57'
+Notes  : Alter the size=  variable to your needs, you can set it as low as 25 bits to verify it works
+Output : (varies) -> YDfL&i>VchPoSKI:"Ca/&hEPO+~]^".Es3+3U?(5gy.-5{\YkBAM7o%n%_,S)yx1U;HNw5l/w(W*5^Y;^@/5^#3B.,i'*8=0#."WV_t;t"o% =vbde3Jy~LR1=PZ3k\2-Ud[Q=L#k#m#Az5TTC8vYLO]iRYC;Yim[]t+j>9-/~cd!Wy>#6a:9Ewhe6PC.j\Jc^C[
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name   : chkciphers.sh
+Desc   : use openssl cmd to check for ciphers (look for weak ciphers 3des/des)
+Cmd    : timeout 3 openssl s_client -cipher NULL,EXPORT,LOW,3DES,aNULL -connect <domain>:443
+Notes  : The timeout is required or set a flag in openssl but better luck when timing out to use timeout cmd after 3 sec of no output .. end
+Output :  Post-Handshake New Session Ticket arrived:
+          SSL-Session:
+          Protocol  : TLSv1.3
+          Cipher    : TLS_AES_256_GCM_SHA384   <snip>
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name   : killergits.sh
+Desc   : a script to wget then ./killergits2.sh  - will install / clone about 30 awesome security/hacking related repos (must see)
+Part 1 : wget https://termbin.com/djxd
+Part 2 : wget https://termbin.com/0xj2g
+
+Notes  : Rename the file d/l'd to someething.sh - chmod +x ; execute in a directory where you dont mind 30 repos
+         For instance this clones down - https://github.com/projectdiscovery  - nuff said
+         lots of good stuff 
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Name    :  a fews neat ways to get your public IP
+IPv4/v6
+Cmd(s)  : alias publicip='dig +short myip.opendns.com @resolver1.opendns.com -4'                    - run publicip
+           alias wanip='dig @resolver4.opendns.com myip.opendns.com +short' 
+           alias wanip4='dig @resolver4.opendns.com myip.opendns.com +short -4'
+           alias wanip6='dig @resolver1.ipv6-sandbox.opendns.com AAAA myip.opendns.com +short -6'
+ No alias: curl -s ifconfig.me/all ;echo
+ Note(s)   The benefit of the above cmd is that you get your X-Forwarded-For IP chain list, to verify TOR/proxy is working, verify your IP is not in the list
+ 
+          
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Description: Using linux lwp_* commands:
+Cmd    :   lwp-rget  --depth=12 --iis --limit=500 --nospace --verbose --sleep 1 http://<domain>
+Note(s):   somewhat similiar to wget except you can control how the site is crawled . see what is in scope and not. very handy for pentesting
+
+Desc   :   leet way to grab headers from target site
+Cmd    :   lwp-dump  --agent "Mozilla/1.1" --method HEAD  --parse-head https://<domain>
+Note(s):   Should return nothing but sites headers. Look for deprecated headers such as Vary:   Pragma:  etc, this indicates an old webserver
+           Obviously look for things like: X-Aspnet-Version, X-Powered-By, X-Frame-Options: * (Indicating no control over cross site connections) etc
+           
+           
+
+
+Customized lwp and get it usable with PERL:
+Cmd(s):    cpan install   # if not configured
+           cpan install LWP
+           cpan install LWP::ConsoleLogger::Everywhere
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Desc  : Alternate way of determining HTTP methods allows on remote server
+Cmd   : curl -sLI -X OPTIONS https://$1/|grep -i "allow:\|meth";
+Note  : Put the above in 'methget.sh'  and run with ./methget.sh https://<domain.com>
+Output: Allow: OPTIONS, TRACE, GET, HEAD, POST  (Example)
+
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Desc:  Is your linux box missing pip installer?  here is your solution
+Cmd :  wget https://termbin.com/3x2o
+       mv 3x2o get-pip.sh
+       run it on ubuntu
+       
+       
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Desc:  Portscanning TCP ports with only netcat
+Cmd :  nc -zv $1 http https 21-23 8080 8443 3306 3389 179 25
+Output:
+Connection to z.com 80 port [tcp/http] succeeded!
+Connection to z.com 443 port [tcp/https] succeeded!
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Desc: Reverse DNS scan a/24 with one bash line
+Cmd:  for i in {1..255}; do host x.y.z.$i 8.8.8.8 | grep name ; done | grep arpa
+Note: Replace x.y.z with your 1st 3 octets
+
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Handy Bash Alias:
+-----------------
+Desc : Upload <file.txt> to termbin.com port 9999 .. Retrieve quick url to share with friends
+Alias: alias tb=" nc termbin.com 9999"
+Usage: cat /etc/motd | tb              (will return URL)
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+Desc  : Use the official 9x Linux bash $PS1 prompt
+Cmd   : export PS1='\e[1;30m[\e[1;37m9x\e[1;30m]\e[1;37m::\e[0;37m\][\[\e[1;30m\]\@\[\e[0;37m\]]\e[0;35m:\e[0;37m[\[\e[0;37m\]\e[1;37m\w\[\e[0;37;40m\]]\n\[\e[0;37m\][\[\e[1;36m\]\u\[\e[1;30m\]@\[\e[1;36m\]\h\[\e[0;37m\]]\[\e[0m\]\$ '
+Output:  Should show 2 lines prompt looking leet
+         [9x]::[06:36 AM]:[/home/user]
+         [user@host]$
+Note(s): If it looks funky, with no color, try setting TERM to ansi :   export TERM="ansi"
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+
+
+
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+
