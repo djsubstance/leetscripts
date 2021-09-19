@@ -361,10 +361,42 @@ If you forget crossorigin="anonymous"  it will not work. This  works on remote s
 Purpose:  If anyone alters your .js file, it will not load and mention it in the console
 
 
-
-  
-
-
+ 
 
 
 [+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+Desc    : CLI backend to get DNS / info / recon on your target ($1) 
+Script  : [bash] / chmod +x cOpchk.sh 
+
+#!/bin/bash
+echo "Checking Centralops.net for hostname $1 writing to file $2";echo
+curl -s 'https://centralops.net/co/DomainDossier.aspx' \
+  -H 'Connection: keep-alive' \
+  -H 'Pragma: no-cache' \
+  -H 'Cache-Control: no-cache' \
+  -H 'sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'Origin: https://centralops.net' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'DNT: 1' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Sec-Fetch-Dest: frame' \
+  -H 'Referer: https://centralops.net/co/DomainDossier.aspx' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Cookie: tool-settings=DD-dd=1&DD-dw=1&DD-nw=1&DD-ss=0&DD-tr=0&dn=ftr.com' \
+  --data-raw "__VIEWSTATE=&addr=$1&dom_whois=true&dom_dns=true&traceroute=true&net_whois=true&x=16&y=14" >> $2
+echo;echo "-----------------------------------";
+
+Note(s): 2 variables are needed on the cmd line   $1 - domain / ip to enumerate    $2 filename to export to
+         You can safely remove alot of those headers like DNT, Pragma, etc.. if needed.. it works as of 9/19/2021
+         
+      
+
+
