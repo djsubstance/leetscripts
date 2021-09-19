@@ -45,8 +45,9 @@
  --------------------------------------------------- T O C --------------------------------------------------
  Repost of deprecated autovpn.go [with updates for stability]                                           [ 1 ]
  Ultimate script for Linux to optimize TCP/IP Settings via sysctl                                       [ 2 ]
-
-
+ ASN -> Prefix / Dumps all advertised prefixes of <asn#> to stdout [ipv4]                               [ 3 ]
+ ASN -> Prefix / Dumps all advertised prefixes of <asn#> to stdout [ipv6]                               [ 4 ]
+ Checks for one single open TCP port using nothing more then bash core commands                         [ 5 ]
 
 
  --------------------------------------------------- [ 1 ] --------------------------------------------------
@@ -106,26 +107,9 @@ echo "extracing IPs from /var/log/auth.log";echo
 
 
 
-[+----------------------------------------------------[ propz to vae for this script ] ----------------------------------------------------------------------+]
 
-Name   :  asn4.sh
-Desc:  :  Dumps all advertised prefixes of <asn#> to stdout [ipv4]
-Usage  :  asn4.sh <asn#>
-Script :  [bash] following
-
-#!/bin/bash
- if [ "$#" -eq  "0" ]
-   then
-     echo "No arguments supplied"
-     echo "Usage: ./asn_v4.sh <ASN> "
-     exit
-else
-curl --silent https://www.dan.me.uk/bgplookup?asn=$1 |grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\/[0-9]\{1,2\}' |sort |uniq
-fi
-
-
-[+----------------------------------------------------[ propz to vae for this script ] ----------------------------------------------------------------------+]
-
+   --------------------------------------------------- [ 4 ] --------------------------------------------------
+  [+---------------------------------------[ propz to vae for this script ]         -------------------------+]
 Name   :  asn6.sh
 Desc:  :  Dumps all advertised prefixes of <asn#> to stdout [ipv6]
 Usage  :  asn6.sh <asn#>
@@ -135,7 +119,7 @@ Script :  [bash] following
 echo "Checking BGP IP -> $1";echo
 curl --silent https://www.dan.me.uk/bgplookup?asn=$1 | grep -oE 's*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*(\/([0-9]|[1-9][0-9]|1[0-1][0-9]|12[0-8]))'
 
-[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+   --------------------------------------------------- [ 5 ] --------------------------------------------------
 
 Name   :  chkport.sh
 Desc:  :  Checks for one single open TCP port using nothing more then bash core commands
@@ -197,14 +181,12 @@ Cmd    :  cat cap |grep .['A'-'Z']['A'-'Z']['A'-'Z']['A'-'Z',' ']
 
 
 
-
-
-
-
-
 Name: getdns.sh
 Desc: Get DNS Entrys (all) via CLI quickly from remote source:
 Cmd :  curl -sL "https://dnsrecords.io/<domain.com>" | html2text |awk '/./' | grep -v '\[comman\|type '
+
+
+
 [+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
 Name  : grabem.sh
 Desc  : Get all ipv4 ips out of file <file.txt>
@@ -331,8 +313,18 @@ Note(s): If it looks funky, with no color, try setting TERM to ansi :   export T
 
 [+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
 
+Desc  : Setup reverse SSH SOCKS5 proxy on the fly w/o alerting FW rules
+Cmd(s): ssh -D5555 user@[remoteshell] -p<remote ssh listening port>
+(execute something to keep connection alive)
+$ top
 
+then locally check listening portds:
+ TCP    127.0.0.1:5555         0.0.0.0:0              LISTENING       InHost
 
+Now you have a local listening SOCKS5 proxy.   Keep in mind TOR is a socks5 proxy.
+SOCKS5 proxys have the benefit of being able to tunnel any protocol.  One great use is in
+Example: load Burp. goto User Ooptions.. go down to SOCKS5 PROXY fill in: localhost port 5555
+All traffic will proxy through your shell
 
 
 
