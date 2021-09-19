@@ -335,4 +335,36 @@ Cmd(s): curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/
         chmod 755 msfinstall 
        ./msfinstall
 
-------------------
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
+
+Desc   : Generate a SHA384 cipher / token for use with loading your JavaScript files securely to prevent tampering
+Prereq : shasum     awk  xxd    base64     (These should be on your linux install)
+Cmd(s) : bash script: gen384.sh | chmod +x
+[ sha384.sh ]
+   #!/bin/bash
+   echo "Generating hash for $1";echo
+   echo "File should be either .js or .css";echo
+   shasum -b -a 384 $1 | awk '{ print $1 }' | xxd -r -p | base64;echo
+
+Note(s): Here is a valid example of how to use this, if your .js file is prefixfree.min.js
+  $ ./gen384.sh prefixfree.min.js
+  
+  [output *example*]
+  /5P+hP8e8Kia5lcEJAyW2vaaYxCuSphlrx9A6imNkRUADNZGUMbsf3eQs9E+XJ
+  $  # With the string above you need to PREPEND   sha384-    to that string  - full example for your website next line
+  
+  [ in index.php ]
+  <script src="prefixfree.min.js" integrity="sha384-2X/5P+hP8e8Kia5lcEJAyW2vaaYxCuSphlrx9A6imNkRUADNZGUMbsf3eQs9E+XJ" crossorigin="anonymous"></script>
+
+Remember you have generated a secure 384 bit SHA hash, if you forget to prepend sha384 , or accidently place sha256- it will not work
+If you forget crossorigin="anonymous"  it will not work. This  works on remote scripts, d/l the script first generate the hash and do the same
+Purpose:  If anyone alters your .js file, it will not load and mention it in the console
+
+
+
+  
+
+
+
+
+[+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
