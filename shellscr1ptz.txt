@@ -330,4 +330,9 @@ All traffic will proxy through your shell
 
 [+-----------------------------------------------------------------------------------------------------------------------------------------------------------+]
 
+Desc  : Super quick way to setup metasploit on Debian/Unbuntu
+Cmd(s): curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall 
+        chmod 755 msfinstall 
+       ./msfinstall
 
+------------------
